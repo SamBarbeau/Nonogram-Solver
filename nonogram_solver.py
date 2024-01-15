@@ -10,21 +10,18 @@ from utils import *
 
 
 def solve_nonogram(driver):
-    # url of puzzle to solve
-    driver.get('https://www.puzzle-nonograms.com/?pl=f3bcb9ebdada43e1e59b2078c0cbe1eb65a03ad17f95f')
+    # url of puzzle to solve (take the "Progress Permalink:" in the "Share" drop down)
+    # this will not be the puzzle solved if the "New Puzzle" button is pressed (see a few lines below)
+    driver.get('https://www.puzzle-nonograms.com/?pl=04b2f7b9a212ca5f65cc4c79ca419be865a4aa331726f')
 
-    # # press the "New Puzzle" button to reset timer (and find new puzzle)
-    # # uncomment if
+    # press the "New Puzzle" button to reset timer (and find new puzzle)
+    # comment out if you want the puzzle from the url given to be solved (can also press this button after solving (in __main__))
     new = driver.find_element(By.ID, "btnNew")
     new.click()
 
     # set "robot" value to "1" to switch to ROBOTS Hall of Fame
     robot_input = driver.find_element(By.ID, "robot")
     driver.execute_script("arguments[0].value = '1';", robot_input)
-
-    # trying to cheat
-    timer_button = driver.find_element(By.ID, "btnPause")
-    timer_button.click()
 
     """finished set up - start solving"""
 
@@ -85,8 +82,13 @@ if __name__ == "__main__":
         nonogram_grid = solve_nonogram(driver)
         update_website_grid(driver, nonogram_grid)
 
-        # time.sleep(3)
+        # uncomment if you want to see the puzzle finished before going to next puzzle
+        time.sleep(3)
 
+        # click the "New Puzzle" after solving the puzzle
+        # can also press this button before solving (in "solve_nonogram" function))
         # new = driver.find_element(By.ID, "btnNew")
         # new.click()
-        input("-- press enter to close --")
+
+    # this is to keep the browser from closing after completing (doens't always close -- may depend on device?)
+    # input("-- press enter to close --")
