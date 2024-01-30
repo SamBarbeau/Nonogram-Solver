@@ -30,3 +30,12 @@ In step 2, I also "unfilled" (put an X) cells I knew must be unfilled (the cell 
 I solved the puzzle using a NumPy array. After solving the puzzle, I use Selenium to access the cell elements on the website and click the cells that should be filled. Visually, the puzzle will always appear to be solved top to bottom. An optimization that could be implemented is to fill the cells as the puzzle is being solved (though I don't think it would do much).
   
 Currently, I don't plan on adding more to this program... but who knows.
+
+## Use the program
+
+To use the program, go to the nonograms website linked above.
+- Find the puzzle you want to solve
+- Press the "Share" button under the puzzle
+- Copy the "Progress Permalink" and paste it into the specified arguement in the "solve_nonogram" function in "nonogram_solver.py"
+
+The puzzle you chose will be the starting point. The code starts the "solving process" by getting a new puzzle (it will be the same dimension as the selected puzzle) so that the timer will restart. If you want to solve the puzzle you chose, comment out the specified lines in "solve_nonogram," but make sure to uncomment out the lines specified in "__main__" if you want to solve multiple puzzles in a row. Finally, of course, run the program using "python3 nonogram_solver.py" in terminal.
