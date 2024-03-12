@@ -71,7 +71,7 @@ if __name__ == "__main__":
         # number of mazes to solve (iterations in the loop below)
         num_mazes_solve = int(input("\n***\n\nHow many puzzles do you want to solve in a row: "))
     else:
-        solve_starting_puzzle = True
+        solve_starting_puzzle = False
         num_mazes_solve = 1
 
     # chromedriver executable
