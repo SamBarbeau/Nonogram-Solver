@@ -9,15 +9,11 @@ import time
 from utils import *
 
 
-def solve_nonogram(driver):
-    # url of puzzle to solve (take the "Progress Permalink:" in the "Share" drop down)
-    # this will not be the puzzle solved if the "New Puzzle" button is pressed (see a few lines below)
-    driver.get('https://www.puzzle-nonograms.com/?pl=04b2f7b9a212ca5f65cc4c79ca419be865a4aa331726f')
-
+def solve_nonogram(driver, solve_starting_puzzle):
     # press the "New Puzzle" button to reset timer (and find new puzzle)
-    # comment out if you want the puzzle from the url given to be solved (can also press this button after solving (in __main__))
-    new = driver.find_element(By.ID, "btnNew")
-    new.click()
+    if solve_starting_puzzle:
+        new = driver.find_element(By.ID, "btnNew")
+        new.click()
 
     # set "robot" value to "1" to switch to ROBOTS Hall of Fame
     robot_input = driver.find_element(By.ID, "robot")
@@ -60,8 +56,23 @@ def solve_nonogram(driver):
 
 
 if __name__ == "__main__":
-    # input this before anything opens up
-    num_mazes_solve = int(input("Input the number of mazes you want to solve: "))
+    # url of puzzle to solve (take the "Progress Permalink:" in the "Share" drop down)
+    # this will not be the puzzle solved if the "New Puzzle" button is pressed (see first few lines of solve_nonogram function)
+    puzzle_link = input("Input the peramlink of the puzzle: ")
+
+    # If the puzzle is a speical Daily, Weekly, or Monthly puzzle, there is no "New Puzzle" button
+    is_special_puzzle = input("\n***\n\nIs this a special Daily, Weekly, or Monthly puzzle? (y/n): ").lower()
+
+    if is_special_puzzle == 'n':
+        # Since the time is already running on the puzzle, the user can choose to reset the time by finding a new puzzle
+        solve_starting_puzzle = input("\n***\n\nThe time is already running on the puzzle.\nWant to start by finding a new puzzle so time resets? (y/n): ")
+        solve_starting_puzzle = True if solve_starting_puzzle.lower() == 'y' else False
+
+        # number of mazes to solve (iterations in the loop below)
+        num_mazes_solve = int(input("\n***\n\nHow many puzzles do you want to solve in a row: "))
+    else:
+        solve_starting_puzzle = True
+        num_mazes_solve = 1
 
     # chromedriver executable
     chromedriver_path = '/Users/sambarbeau/Documents/code/python/nonogram solver/driver/chromedriver'
@@ -77,18 +88,19 @@ if __name__ == "__main__":
     # set up the WebDriver
     driver = webdriver.Chrome(service = Service(chromedriver_path), options = chrome_options)
 
+    driver.get(puzzle_link)
 
     for i in range(num_mazes_solve):
-        nonogram_grid = solve_nonogram(driver)
+        nonogram_grid = solve_nonogram(driver,solve_starting_puzzle)
         update_website_grid(driver, nonogram_grid)
 
         # uncomment if you want to see the puzzle finished before going to next puzzle
         time.sleep(3)
 
         # click the "New Puzzle" after solving the puzzle
-        # can also press this button before solving (in "solve_nonogram" function))
-        # new = driver.find_element(By.ID, "btnNew")
-        # new.click()
+        if not solve_starting_puzzle and i < num_mazes_solve - 1:
+            new = driver.find_element(By.ID, "btnNew")
+            new.click()
 
     # this is to keep the browser from closing after completing (doens't always close -- may depend on device?)
     # input("-- press enter to close --")

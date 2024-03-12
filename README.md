@@ -14,12 +14,13 @@ I have played the Nonograms app on my iphone for quite some time. After my final
 - Python 3
 - Selenium
 - ChromeDriver
+    - Find the latest ChromeDrivers [here](https://googlechromelabs.github.io/chrome-for-testing/#stable)
 - NumPy
 - Potentially other dependecies
 
 ## Algorithm
 
-The algorithm I developed to solve the nonogram puzzles (calculate_options, fill_cells, remove_options in utils.py) was inspired by Hennie de Harder through this article: https://towardsdatascience.com/solving-nonograms-with-120-lines-of-code-a7c6e0f627e4. The article also gives an overview on how the puzzle is formatted, if that is something you need to see.
+The algorithm I developed to solve the nonogram puzzles (calculate_options, fill_cells, remove_options in utils.py) was inspired by Hennie de Harder through [this article](https://towardsdatascience.com/solving-nonograms-with-120-lines-of-code-a7c6e0f627e4). The article also gives an overview on how the puzzle is formatted, if that is something you need to see.
 
 Hennie explains there are three general steps in the process.
 - Calculate every option each row and column could be filled according to their corresponding clues.
@@ -34,8 +35,17 @@ Currently, I don't plan on adding more to this program... but who knows.
 ## Use the program
 
 To use the program, go to the nonograms website linked above.
-- Find the puzzle you want to solve
+- Find a puzzle you want to solve
 - Press the "Share" button under the puzzle
-- Copy the "Progress Permalink" and paste it into the specified arguement in the "solve_nonogram" function in "nonogram_solver.py"
+- Copy the "Progress Permalink", you'll need this permalink when prompted by the command line for setup questions.
+Now, run
+```
+python3 nonogram_solver.py
+```
+The program prompts the user for the following information:
+- Permalink of the chosen puzzle
+- Whether the puzzle is a special puzzle
+- Whether to solve the given puzzle or find a new one (resetting the timer)
+- Number of puzzles to solve in a row
 
-The puzzle you chose will be the starting point. The code starts the "solving process" by getting a new puzzle (it will be the same dimension as the selected puzzle) so that the timer will restart. If you want to solve the puzzle you chose, comment out the specified lines in "solve_nonogram," but make sure to uncomment out the lines specified in "__main__" if you want to solve multiple puzzles in a row. Finally, of course, run the program using "python3 nonogram_solver.py" in terminal.
+If the puzzle is a special puzzle, the last two questions are defaulted to "no" and "1" respectively since speical puzzles don't have a "New Puzzle" button.
