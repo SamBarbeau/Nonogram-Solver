@@ -1,5 +1,6 @@
 from itertools import combinations
 from selenium.webdriver.common.by import By
+from time import sleep
 
 
 def extract_clues(task_elements):
@@ -96,5 +97,20 @@ def update_website_grid(driver, nonogram_grid):
                 cell_element.click()
 
     # press the "done" button to finish
-    done = driver.find_element(By.ID, "btnReady")
-    done.click()
+    # done = driver.find_element(By.ID, "btnNew")
+    # done.click()
+
+# def update_website_grid(driver, nonogram_grid):
+#     grid = driver.find_element(By.CLASS_NAME, "nonograms-cell-back")
+
+#     # Get list of rows in the grid
+#     row_elements = grid.find_elements(By.CLASS_NAME, "row")
+#     cached_cells = [row.find_elements(By.CLASS_NAME, "cell") for row in row_elements]
+
+#     for i, cell_elements in enumerate(cached_cells):
+#         for j, cell_element in enumerate(cell_elements):
+#             # If the cell should be filled and is currently "cell-off"
+#             if nonogram_grid[i, j] == 1:
+#                 # Directly update the class to "cell-on"
+#                 driver.execute_script("""var element = arguments[0]; var currentClass = element.getAttribute('class');
+#                                         var newClass = currentClass.slice(0, -3) + 'on'; element.setAttribute('class', newClass);""", cell_element)

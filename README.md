@@ -11,12 +11,20 @@ I have played the Nonograms app on my iphone for quite some time. After my final
 
 ## Requirements
 
-- Python 3
-- Selenium
-- ChromeDriver
-    - Find the latest ChromeDrivers [here](https://googlechromelabs.github.io/chrome-for-testing/#stable)
-- NumPy
-- Potentially other dependecies
+#### Python Setup
+
+1. Create and activate a virtual environment:
+```bash
+python3 -m venv .venv
+source venv/bin/activate # One Windows: venv\Scripts\activate
+```
+
+2. Install the required packages:
+```bash
+pip install selenium
+pip install webdriver-manager
+pip install numpy
+```
 
 ## Algorithm
 

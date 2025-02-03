@@ -1,9 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import numpy as np
 import os
 import sys
@@ -118,9 +119,6 @@ if __name__ == "__main__":
         # Initialize the cache dictionary
         solved_puzzles_cache = {}
 
-    # chromedriver executable
-    chromedriver_path = '/Users/sambarbeau/Documents/code/python/nonogram solver/driver/chromedriver'
-
     # chrome profile
     # chrome_profile_path = '/Users/sambarbeau/Library/Application Support/Google/Chrome/Profile 9'
 
@@ -130,7 +128,7 @@ if __name__ == "__main__":
     chrome_options.add_experimental_option("detach", True) # so the window will stay open after the program ends
 
     # set up the WebDriver
-    driver = webdriver.Chrome(service = Service(chromedriver_path), options = chrome_options)
+    driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = chrome_options)
 
     driver.get(puzzle_link)
 
@@ -170,4 +168,4 @@ if __name__ == "__main__":
             new.click()
     
     # Save the cache to a file
-    np.save('solved_puzzles_cache.npy', solved_puzzles_cache)
+    # np.save('solved_puzzles_cache.npy', solved_puzzles_cache)
